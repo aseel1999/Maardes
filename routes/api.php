@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::post('/storeBlogs',[AppController::class,'storeBlogs']);
     Route::get('/blog/{blog}',[AppController::class,'Blog']);
     Route::get('/companyDetails/{company}',[AppController::class,'companyDetails']);
-   // Route::post('/storeCompany',[AppController::class,'storeCompany']);
+    Route::post('/storeCompany',[AppController::class,'storeCompany']);
     Route::post('/storeDays',[AppController::class,'storeDays']);
     Route::post('/storeEvents',[AppController::class,'storeEvents']);
     Route::get('/viewDayEvents',[AppController::class,'viewDayEvents']);
@@ -46,4 +46,5 @@ Route::group(['middleware' => 'auth:api'], function () {
    //Route::get('/companyUser',[AppController::class,'companyUser']);
    //Route::get('/packageUser',[AppController::class,'packageUser']);
    //Route::post('/storePackage',[AppController::class,'storePackage']);
+   Route::get('/getMaraad',[AppController::class,'getMaraad']);
    

@@ -12,6 +12,7 @@ use App\Models\Location_Work;
 use App\Models\Package;
 use App\Models\Event;
 use App\Models\Day;
+use App\Models\Location_Maared;
 use App\Models\Question;
 use App\Models\Ticket;
 use App\Models\User;
@@ -69,6 +70,8 @@ class AppController extends Controller
             return response()->json(['status' => false, 'code' => 200,
                 'message' => implode("\n",$validator-> messages()-> all()) ]);
         }
+        
+        
         $item=new Company();
         $item->user_id=auth('api')->id();
         $item->name=$request->get('name');
@@ -221,26 +224,40 @@ class AppController extends Controller
         $item->save();
        return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $item]);
     }
-    public function storeMaareds(Request $request){
-        $validator=Validator::make($request->all(),[
+    public function ViewerMaarad(Location_Maared $location_maared){
+        $item=User::with('location_maared')->where('location_maared_id',$location_maared->id);
+
+    }
+    public function storeMaaradByViewer(Request $request,User $user){
+       
+        $validator = Validator::make($request->all(), [
             'name'=>'required',
-            'image'=>'required|file',
+            'location'=>'required|file',
+            'area'=>'required',
+            'logo'=>'required',
+            'imagemarad'=>'required',
             'description'=>'required'
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => false, 'code' => 200,
                 'message' => implode("\n",$validator-> messages()-> all()) ]);
         }
-        $item=new Maared();
+        if ($user->has('location_maared')){
+        $item=new Location_Maared();
         $item->name=$request->get('name');
-        $item->image=$request->get('image');
-        $item->description=$request->get('description');
+        $item->package=$request->get('location');
+        $item->description=$request->get('area');
         $item->save();
-        return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $item]);
-
-
+        }
+       return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $item]);
     }
-    
+    public function getMaraad(){
+        $users=User::with('location_maared')->where('type','4')->get();
+        return response()->json([
+            'user'=>$users
+
+        ]);
+    }
 
 
 }

@@ -19,13 +19,14 @@ use Laravel\Passport\HasApiTokens;
 
 class UserController extends Controller
 {
-   
+
     public function broker()
     {
         return Password::broker('users');
     }
     public function signUp(Request $request)
     {
+    //    return $request;
     $validator = Validator::make($request->all(), [
         'name' => 'required',
         'email' => 'required|email:filter|unique:users',
@@ -42,33 +43,33 @@ class UserController extends Controller
         'package_id'=>'required_if:type,==,3',
         'bio'=>'required_if:type,==,2',
         'service'=>'required_if:type,==,2|array',
-        
+
         'device_type' => 'required',
     ]);
     if ($validator->fails()) {
         return response()->json(['status' => false, 'code' => 200,
             'message' => implode("\n", $validator->messages()->all())]);
     }
-    $newUser = new User();
-        $newUser->name = $request->get('name');
-        $newUser->mobile = $request->get('mobile');
-        $newUser->email = $request->get('email');
-        $newUser->password = bcrypt($request->get('password'));
-        $newUser->confirm_password= bcrypt($request->get('confirm_password'));
-        $newUser->type=$request->get('type');
-        $newUser->company=$request->get('company');
-        $newUser->company_files=$request->get('company_files');
-        $newUser->files=$request->get('files');
-        $newUser->image=$request->get('image');
-        $newUser->package_id=$request->get('package_id');
-        $newUser->bio=$request->get('bio');
-        $newUser->service=$request->get('service');
+        $newUser = new User();
+            $newUser->name = $request->get('name');
+            $newUser->mobile = $request->get('mobile');
+            $newUser->email = $request->get('email');
+            $newUser->password = bcrypt($request->get('password'));
+            $newUser->confirm_password= bcrypt($request->get('confirm_password'));
+            $newUser->type=$request->get('type');
+            $newUser->company=$request->get('company');
+            $newUser->company_files=$request->get('company_files');
+            $newUser->files=$request->get('files');
+            $newUser->image=$request->get('image');
+            $newUser->package_id=$request->get('package_id');
+            $newUser->bio=$request->get('bio');
+            $newUser->service=$request->get('service');
         $newUser->save();
         $accessToken = $newUser->createToken('authToken')->accessToken;
         return response(['user'=> $newUser, 'access_token'=> $accessToken]);
 }
     public function login(Request $request){
-       
+
         $loginData = $request->validate([
             'email' => 'required',
             'password' => 'required'
@@ -249,22 +250,24 @@ class UserController extends Controller
             return response()->json(['status' => false, 'code' => 200,
                 'message' => $message, 'validator' => $validator]);
         }
-        
+
 
     }
     public function maraadViewrDetails(User $user,Location_Maared $location_maarad){
-        if($user->type=='2'){
-            $maarads=User::with('location_maarad')->where('location_maarad_id',)
-        }
+        // if($user->type=='2'){
+        //     $maarads=User::with('location_maarad')->where('location_maarad_id',)
+        // }
 
     }
+public function getAllUser(){
+   return $users = User::with('location_maared')->get();
+}
 
 
 
 
 }
-        
-    
 
-        
-   
+
+
+

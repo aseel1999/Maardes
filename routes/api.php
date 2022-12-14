@@ -17,10 +17,11 @@ use App\Http\Controllers\Api\UserController;
 */
 
 Route::group(['middleware' => 'auth:api'], function () {
-    
+
 });
 
-    Route::post('/signUp', [UserController::class, 'signUp']);
+Route::get('/getAllUser', [UserController::class, 'getAllUser']);
+Route::post('/signUp', [UserController::class, 'signUp']);
     Route::post('/login', [UserController::class, 'login']);
     Route::post('/forgotPassword',[UserController::class,'forgotPassword']);
     Route::post('/changePassword',[UserController::class,'changePassword']);
@@ -43,7 +44,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/viewTickets/{id}',[AppController::class,'viewTickets']);
     Route::get('allTickets',[AppController::class,'allTickets']);
     Route::post('/storePackage',[AppController::class,'storePackage']);
-   //Route::get('/companyUser',[AppController::class,'companyUser']);
+   Route::get('/companyUser',[AppController::class,'companyUser']);
    //Route::get('/packageUser',[AppController::class,'packageUser']);
    //Route::post('/storePackage',[AppController::class,'storePackage']);
-   
+

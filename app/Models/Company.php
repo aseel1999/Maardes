@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Company extends Model
 {
-    use HasFactory,Translatable;
-    public $translatedAttributes = ['name'];
+    use HasFactory;
+    
     protected $fillable = ['name','image'];
+    protected $casts=['image'=>'file'];
     public function works()
     {
         return $this->hasMany(Location_Work::class);

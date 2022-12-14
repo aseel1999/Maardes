@@ -253,6 +253,7 @@ class UserController extends Controller
 
 
     }
+<<<<<<< HEAD
     public function maraadViewrDetails(User $user,Location_Maared $location_maarad){
         // if($user->type=='2'){
         //     $maarads=User::with('location_maarad')->where('location_maarad_id',)
@@ -263,6 +264,9 @@ public function getAllUser(){
    return $users = User::with('location_maared')->get();
 }
 
+=======
+    
+>>>>>>> 82481533682ebbb96da8172dca8220239d1592e8
 
 
 

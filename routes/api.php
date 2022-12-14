@@ -32,7 +32,7 @@ Route::post('/signUp', [UserController::class, 'signUp']);
     Route::post('/storeBlogs',[AppController::class,'storeBlogs']);
     Route::get('/blog/{blog}',[AppController::class,'Blog']);
     Route::get('/companyDetails/{company}',[AppController::class,'companyDetails']);
-   // Route::post('/storeCompany',[AppController::class,'storeCompany']);
+    Route::post('/storeCompany',[AppController::class,'storeCompany']);
     Route::post('/storeDays',[AppController::class,'storeDays']);
     Route::post('/storeEvents',[AppController::class,'storeEvents']);
     Route::get('/viewDayEvents',[AppController::class,'viewDayEvents']);
@@ -47,4 +47,9 @@ Route::post('/signUp', [UserController::class, 'signUp']);
    Route::get('/companyUser',[AppController::class,'companyUser']);
    //Route::get('/packageUser',[AppController::class,'packageUser']);
    //Route::post('/storePackage',[AppController::class,'storePackage']);
+<<<<<<< HEAD
 
+=======
+   Route::get('/getMaraad',[AppController::class,'getMaraad']);
+   
+>>>>>>> 82481533682ebbb96da8172dca8220239d1592e8

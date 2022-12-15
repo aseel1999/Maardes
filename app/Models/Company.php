@@ -9,8 +9,8 @@ class Company extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['name','image'];
-    protected $casts=['image'=>'file'];
+    protected $fillable = ['user_id','name','image'];
+    
     public function works()
     {
         return $this->hasMany(Location_Work::class);
@@ -27,7 +27,7 @@ class Company extends Model
         return $this->belongsTo(Ticket::class);
     }
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->hasOne(User::class);
     }
 
 }

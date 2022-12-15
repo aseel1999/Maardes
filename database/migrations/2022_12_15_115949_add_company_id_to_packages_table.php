@@ -13,11 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('image');
-            $table->timestamps();
+        Schema::table('packages', function (Blueprint $table) {
+            $table->foreignId('company_id');
         });
     }
 
@@ -28,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::table('packages', function (Blueprint $table) {
+            $table->dropColumn('company_id');
+        });
     }
 };

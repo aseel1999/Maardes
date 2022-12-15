@@ -72,7 +72,7 @@ class User extends Authenticatable
         return $this->hasOne(Location_Maared::class);
     }
     public function company(){
-        return $this->hasOne(Company::class);
+        return $this->belongsTo(Company::class);
     }
     public function profile(){
         return $this->hasOne(Profile::class);

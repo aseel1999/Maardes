@@ -58,35 +58,35 @@ class AppController extends Controller
         }
     }
     public function storeCompany(Request $request){
-        
         $validator = Validator::make($request->all(), [
             'name'=>'required',
-            'image'=>'requied|file',
+            'image'=>'required|file',
             'location_work_id'=>'required',
-            'package_id'=>'required'
+            'package_id'=>'required',
+            'user_id'=>'required'
         ]);
-        
         if ($validator->fails()) {
             return response()->json(['status' => false, 'code' => 200,
-                'message' => implode("\n",$validator-> messages()-> all()) ]);
+                'message' => implode("\n",$validator-> messages()->all()) ]);
         }
-        
-        
         $item=new Company();
         $item->user_id=auth('api')->id();
         $item->name=$request->get('name');
-        $item->image=$request->get('image');
+        $item->image=$request->file('image');
         $item->location_work_id=$request->get('location_work_id');
         $item->package_id=$request->get('package_id');
         $item->save();
-       return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $item]);
+       return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $item->makeHidden(['created_at','updated_at'])]);
         
     }
-    public function companyUser(){
-        $user=User::all();
-        $companies=User::where('company_id',$user->company_id)->orWhere('type',$user->type);
+    public function companyViewerDetails($type){
+        $user=User::where('type','3')->first();
+        $companies=Company::with('user');
+        
         return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $companies]);
-    }
+    
+}
+
     public function packageUser(){
         $user=User::pluck('company_id');
         $packages=User::where('package_id',$user);
@@ -258,6 +258,31 @@ class AppController extends Controller
 
         ]);
     }
+        public function maraadViewrDetails(User $user){
+            if($user->type=='4'){
+               $maarads=Location_Maared::with(['user'])->where('user_id',$user->id)->get();
+               return response()->json([
+                'details'=>$maarads->makeHidden(['user_id','password','confirm_password','created_at','updated_at','email_verified_at','package_id','service','company_id','tw_link','inst_link','linked_link','bio','type','files','company_files']),
+                
+            ]);
+            }
+            else{
+            return response()->json([
+                'details'=>'the type is not valid here',
+                
+            ]);
+        }
+    }
+    public function organizerDetails(){
+    
+            $organizers=User::where('type','2')->get();
+            return response()->json([
+                'organizers'=>$organizers->makeHidden(['company_id','package_id','type','company_files','files','country','company','confirm_password','password','email_verified_at','updated_at','created_at','remember_token','linked_link','inst_link','tw_link','fb_link']),
+            ]);
+
+        }
+   
 
 
-}
+
+    }

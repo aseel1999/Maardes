@@ -20,8 +20,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 });
 
-Route::get('/getAllUser', [UserController::class, 'getAllUser']);
-Route::post('/signUp', [UserController::class, 'signUp']);
+ddRoute::post('/signUp', [UserController::class, 'signUp']);
     Route::post('/login', [UserController::class, 'login']);
     Route::post('/forgotPassword',[UserController::class,'forgotPassword']);
     Route::post('/changePassword',[UserController::class,'changePassword']);
@@ -51,5 +50,5 @@ Route::post('/signUp', [UserController::class, 'signUp']);
 
 =======
    Route::get('/getMaraad',[AppController::class,'getMaraad']);
-   
+
 >>>>>>> 82481533682ebbb96da8172dca8220239d1592e8

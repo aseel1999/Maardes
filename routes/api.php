@@ -47,9 +47,7 @@ Route::post('/signUp', [UserController::class, 'signUp']);
    Route::get('/companyUser',[AppController::class,'companyUser']);
    //Route::get('/packageUser',[AppController::class,'packageUser']);
    //Route::post('/storePackage',[AppController::class,'storePackage']);
-<<<<<<< HEAD
 
-=======
+
    Route::get('/getMaraad',[AppController::class,'getMaraad']);
    
->>>>>>> 82481533682ebbb96da8172dca8220239d1592e8

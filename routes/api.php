@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth:api'], function () {
 });
 
     Route::post('/signUp', [UserController::class, 'signUp']);
+
+Route::post('/signUp', [UserController::class, 'signUp']);
     Route::post('/login', [UserController::class, 'login']);
     Route::post('/forgotPassword',[UserController::class,'forgotPassword']);
     Route::post('/changePassword',[UserController::class,'changePassword']);
@@ -50,3 +52,7 @@ Route::group(['middleware' => 'auth:api'], function () {
    Route::get('/organizerDetails',[AppController::class,'organizerDetails']);
    Route::get('/companyViewerDetails',[AppController::class,'companyViewerDetails']);
    
+   //Route::post('/storePackage',[AppController::class,'storePackage']);
+
+
+   Route::get('/getMaraad',[AppController::class,'getMaraad']);

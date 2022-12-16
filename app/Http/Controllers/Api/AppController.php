@@ -79,13 +79,20 @@ class AppController extends Controller
        return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $item->makeHidden(['created_at','updated_at'])]);
         
     }
-    public function companyViewerDetails($type){
-        $user=User::where('type','3')->first();
-        $companies=Company::with('user');
-        
-        return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $companies]);
+    public function companyViewerDetails(User $user){
+
+        $user=User::where('type', '3')->with('company')->first();
+        return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $user]);
     
 }
+public function companyRaeiDetails(){
+    $user=User::where('type', '2')->with('company')->first();
+    dd($user);
+    return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $user]);
+
+}
+
+
 
     public function packageUser(){
         $user=User::pluck('company_id');

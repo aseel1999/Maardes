@@ -17,7 +17,7 @@ use App\Http\Controllers\Api\UserController;
 */
 
 Route::group(['middleware' => 'auth:api'], function () {
-    
+
 });
 
     Route::post('/signUp', [UserController::class, 'signUp']);
@@ -43,10 +43,9 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/viewTickets/{id}',[AppController::class,'viewTickets']);
     Route::get('allTickets',[AppController::class,'allTickets']);
     Route::post('/storePackage',[AppController::class,'storePackage']);
-   
+   Route::get('/companyUser',[AppController::class,'companyUser']);
    //Route::get('/packageUser',[AppController::class,'packageUser']);
-   //Route::post('/storePackage',[AppController::class,'storePackage']);
- //  Route::get('/getMaraad',[AppController::class,'getMaraad']);
+   Route::get('/getMaraad',[AppController::class,'getMaraad']);
    Route::get('/maraadViewrDetails/{user}',[AppController::class,'maraadViewrDetails']);
    Route::get('/organizerDetails',[AppController::class,'organizerDetails']);
    Route::get('/companyViewerDetails',[AppController::class,'companyViewerDetails']);

@@ -27,7 +27,7 @@ class Company extends Model
         return $this->belongsTo(Ticket::class);
     }
     public function user(){
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
 }

@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('location_maarads', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->integer('location')->nullable();;
+            $table->integer('user_id')->nullable();
+            $table->integer('location')->nullable();
             $table->integer('area')->nullable();;
             $table->string('logo')->nullable();;
             $table->string('imagemarad')->nullable();
@@ -26,7 +27,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.                                        
+     * Reverse the migrations.
      *
      * @return void
      */

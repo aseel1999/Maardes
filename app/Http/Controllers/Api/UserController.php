@@ -101,8 +101,9 @@ class UserController extends Controller
         }
         $token = $this->broker()->createToken($user);
         $url = url('/password/reset/' . $token);
-        $user->notify(new ResetPassword($token));
-        $message =('You_will_receive_email');
+        Password::sendResetLink($validator);
+        //$user->notify(new ResetPassword($token));
+        $message =('Reset password link sent on your email id');
         return response()->json(['status' => true, 'code' => 200, 'message' => $message]);
     }
     public function changePassword(Request $request)
@@ -253,23 +254,10 @@ class UserController extends Controller
 
 
     }
-<<<<<<< HEAD
-    public function maraadViewrDetails(User $user,Location_Maared $location_maarad){
-        // if($user->type=='2'){
-        //     $maarads=User::with('location_maarad')->where('location_maarad_id',)
-        // }
 
-    }
 public function getAllUser(){
    return $users = User::with('location_maared')->get();
 }
-
-=======
-    
->>>>>>> 82481533682ebbb96da8172dca8220239d1592e8
-
-
-
 }
 
 

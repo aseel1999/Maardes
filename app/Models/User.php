@@ -77,6 +77,9 @@ class User extends Authenticatable
     public function profile(){
         return $this->hasOne(Profile::class);
     }
+    public function tickets(){
+        return $this->hasMany(Ticket::class);
+    }
     
     public function scopeFilter($query)
     {

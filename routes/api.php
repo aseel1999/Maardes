@@ -32,7 +32,6 @@ Route::post('/signUp', [UserController::class, 'signUp']);
     Route::post('/contactUs',[ContactController::class,'contactUs']);
     Route::post('/storeBlogs',[AppController::class,'storeBlogs']);
     Route::get('/blog/{blog}',[AppController::class,'Blog']);
-    Route::get('/companyDetails/{company}',[AppController::class,'companyDetails']);
     Route::post('/storeCompany',[AppController::class,'storeCompany']);
     Route::post('/storeDays',[AppController::class,'storeDays']);
     Route::post('/storeEvents',[AppController::class,'storeEvents']);
@@ -42,15 +41,23 @@ Route::post('/signUp', [UserController::class, 'signUp']);
     Route::post('/storeAbout',[AppController::class,'storeAbout']);
     Route::get('/viewAbout',[AppController::class,'viewAbout']);
     Route::post('/storeTicket',[AppController::class,'storeTicket']);
-    Route::get('/viewTickets/{id}',[AppController::class,'viewTickets']);
+    Route::get('/viewTicketsUser/{user}',[AppController::class,'viewTicketsUser']);
     Route::get('allTickets',[AppController::class,'allTickets']);
     Route::post('/storePackage',[AppController::class,'storePackage']);
    Route::get('/companyUser',[AppController::class,'companyUser']);
-   //Route::get('/packageUser',[AppController::class,'packageUser']);
+   Route::get('/packageUser/{user}',[AppController::class,'packageUser']);
    Route::get('/getMaraad',[AppController::class,'getMaraad']);
    Route::get('/maraadViewrDetails/{user}',[AppController::class,'maraadViewrDetails']);
    Route::get('/organizerDetails',[AppController::class,'organizerDetails']);
    Route::get('/companyViewerDetails',[AppController::class,'companyViewerDetails']);
+   Route::get('/companyRaeiDetails',[AppController::class,'companyRaeiDetails']);
+   Route::get('/companyOrganizerDetails',[AppController::class,'companyOrganizerDetails']);
+   Route::get('/companyPackageViewerDetails',[AppController::class,'companyPackageViewerDetails']);
+   Route::get('/companyPackageRaeiDetails',[AppController::class,'companyPackageRaeiDetails']);
+   Route::get('/packagesBelongMaared',[AppController::class,'packagesBelongMaared']);
+   
+
+
    
    //Route::post('/storePackage',[AppController::class,'storePackage']);
 

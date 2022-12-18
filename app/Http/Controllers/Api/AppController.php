@@ -45,24 +45,11 @@ class AppController extends Controller
         return response()->json(['status' => true, 'code' => 200,
             'message' => $message, 'item' => $item]);
     }
-    public function companyDetails($id){
-        $package=Package::where('id',$id);
-        $location_work=Location_Work::where('id',$id);
-        $item=Company::where('package_id',$package)->where('location_work_id',$location_work);
-        if ($item) {
-            $message = ('ok');
-            return response()->json(['status' => true, 'code' => 200, 'message' => $message, 'item' => $item]);
-        }else{
-            $message = ('whoops');
-            return response()->json(['status' => false, 'code' => 200, 'message' => $message,'item'=>$item]);
-        }
-    }
+    
     public function storeCompany(Request $request){
         $validator = Validator::make($request->all(), [
             'name'=>'required',
             'image'=>'required|file',
-            'location_work_id'=>'required',
-            'package_id'=>'required',
             'user_id'=>'required'
         ]);
         if ($validator->fails()) {
@@ -73,30 +60,40 @@ class AppController extends Controller
         $item->user_id=auth('api')->id();
         $item->name=$request->get('name');
         $item->image=$request->file('image');
-        $item->location_work_id=$request->get('location_work_id');
-        $item->package_id=$request->get('package_id');
         $item->save();
        return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $item->makeHidden(['created_at','updated_at'])]);
         
     }
     public function companyViewerDetails(User $user){
 
-        $user=User::where('type', '3')->with('company')->first();
+        $user=User::where('type', '3')->with('company.location_works')->first();
         return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $user]);
     
 }
 public function companyRaeiDetails(){
-    $user=User::where('type', '2')->with('company')->first();
-    dd($user);
+    $user=User::where('type', '2')->with('company.location_works')->first();
+   
     return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $user]);
 
 }
+public function companyOrganizerDetails(){
+    $user=User::where('type', '4')->with('company.location_works')->first();
+   
+    return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $user]);
 
+}
+public function companyPackageRaeiDetails(){
+    $user=User::where('type','2')->with('company.packages')->first();
+    return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $user]);
 
+}
+public function companyPackageViewerDetails(){
+    $user=User::where('type','3')->with('company.packages')->first();
+    return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $user]);
 
-    public function packageUser(){
-        $user=User::pluck('company_id');
-        $packages=User::where('package_id',$user);
+}
+    public function packageUser($id){
+        $packages=Package::where('user_id',$id)->first();
         return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $packages]);
     }
     public function storeEvents(Request $request){
@@ -185,6 +182,7 @@ public function companyRaeiDetails(){
         $validator = Validator::make($request->all(), [
             'name'=>'required',
             'date'=>'required',
+
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => false, 'code' => 200,
@@ -200,8 +198,8 @@ public function companyRaeiDetails(){
             'tickets' => $item,
         ]);
     }
-    public function viewTickets($id){
-        $tickets=Ticket::where('user_id',$id);
+    public function viewTicketsUser($id){
+        $tickets=Ticket::where('user_id',$id)->first();
         return response()->json([
             'status' => 200,
             'tickets' => $tickets,
@@ -219,6 +217,8 @@ public function companyRaeiDetails(){
             'name'=>'required',
             'package'=>'required|file',
             'description'=>'required',
+            'user_id'=>'required',
+            'company_id'=>'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => false, 'code' => 200,
@@ -226,8 +226,10 @@ public function companyRaeiDetails(){
         }
         $item=new Package();
         $item->name=$request->get('name');
-        $item->package=$request->get('package');
+        $item->package=$request->file('package');
         $item->description=$request->get('description');
+        $item->user_id=$request->get('user_id');
+        $item->company_id=$request->get('company_id');
         $item->save();
        return response()->json(['status' => true, 'code' => 200, 'message' =>'created successfuly', 'items' => $item]);
     }
@@ -288,8 +290,18 @@ public function companyRaeiDetails(){
             ]);
 
         }
+        public function packagesBelongMaared(){
+            $packages=Maared::with('packages')->get();
+            return response()->json([
+                'packages'=>$packages
+    
+            ]);
+        }
    
 
 
 
-    }
+    
+
+    
+}

@@ -11,9 +11,9 @@ class Package extends Model
     protected $fillable=['name','package'];
     protected $casts=['package'=>'array'];
 
-    public function maareds(){
+    public function maared(){
         
-        return $this->hasMany(Maared::class);
+        return $this->belongsTo(Maared::class);
     }
     public function user(){
         return $this->belongsTo(User::class);

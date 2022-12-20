@@ -303,6 +303,7 @@ public function companyPackageViewerDetails(){
                 'number'=>'required',
                 'area'=>'required',
                 'company_id'=>'required',
+
             ]);
             if ($validator->fails()) {
                 return response()->json(['status' => false, 'code' => 200,
@@ -312,6 +313,7 @@ public function companyPackageViewerDetails(){
         $item->number=$request->number;
         $item->area=$request->area;
         $item->company_id=$request->company_id;
+       
         $item->save();
         return response()->json([
             'status' => 200,
@@ -333,6 +335,7 @@ public function companyPackageViewerDetails(){
         $item->location=$request->location;
         $item->area=$request->area;
         $item->location_maarad_id=$request->location_maarad_id;
+        $item->user_id=auth('api')->id();
         $item->save();
         return response()->json([
             'status' => 200,

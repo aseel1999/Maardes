@@ -55,8 +55,8 @@ Route::post('/signUp', [UserController::class, 'signUp']);
    Route::get('/companyPackageViewerDetails',[AppController::class,'companyPackageViewerDetails']);
    Route::get('/companyPackageRaeiDetails',[AppController::class,'companyPackageRaeiDetails']);
    Route::get('/packagesBelongMaared',[AppController::class,'packagesBelongMaared']);
-   
-
+   Route::post('/storeLocationWorks',[AppController::class,'storeLocationWorks']);
+   Route::post('/storeLocationMaarad',[AppController::class,'storeLocationMaarad']);
 
    
    //Route::post('/storePackage',[AppController::class,'storePackage']);

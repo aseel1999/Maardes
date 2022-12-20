@@ -12,6 +12,7 @@ use App\Models\Location_Work;
 use App\Models\Package;
 use App\Models\Event;
 use App\Models\Day;
+use App\Models\Location;
 use App\Models\Location_Maared;
 use App\Models\Question;
 use App\Models\Ticket;
@@ -297,8 +298,51 @@ public function companyPackageViewerDetails(){
     
             ]);
         }
-   
+        public function storeLocationWorks(Request $request){
+            $validator = Validator::make($request->all(), [
+                'number'=>'required',
+                'area'=>'required',
+                'company_id'=>'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['status' => false, 'code' => 200,
+                    'message' => implode("\n",$validator-> messages()-> all()) ]);
+            }
+        $item=new Location_Work();
+        $item->number=$request->number;
+        $item->area=$request->area;
+        $item->company_id=$request->company_id;
+        $item->save();
+        return response()->json([
+            'status' => 200,
+            'location_works' => $item,
+        ]);
 
+        }
+        public function storeLocationMaarad(Request $request){
+            $validator = Validator::make($request->all(), [
+                'location'=>'required',
+                'area'=>'required',
+                'location_maarad_id'=>'required',
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['status' => false, 'code' => 200,
+                    'message' => implode("\n",$validator-> messages()-> all()) ]);
+            }
+        $item=new Location();
+        $item->location=$request->location;
+        $item->area=$request->area;
+        $item->location_maarad_id=$request->location_maarad_id;
+        $item->save();
+        return response()->json([
+            'status' => 200,
+            'locations' => $item,
+        ]);
+
+        }
+
+   
+    
 
 
     
